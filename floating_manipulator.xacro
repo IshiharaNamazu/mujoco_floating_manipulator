@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<mujoco model="adeos_ii_simulation" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <!-- 
+        ADEOS II (Midori II) Satellite Model
+        質量
+        燃料135kg http://www.astronautix.com/a/adeos.html
+        太陽電池171kg https://doi.org/10.1109/PVSC.1996.564010
+    -->
+    <!--
+        TODOLIST:
+        - 取付位置の偏心の再現？
+    -->
+
+    <!-- 変数の定義 -->
+    <!-- 衛星本体のサイズ (半分の長さ) -->
+    <xacro:property name="satellite_size_x" value="6" />
+    <xacro:property name="satellite_size_y" value="4" />
+    <xacro:property name="satellite_size_z" value="4" />
+
+    <!-- ソーラーパネルのサイズ (半分の長さ) -->
+    <xacro:property name="solar_array_size_x" value="0.20" />
+    <xacro:property name="solar_array_size_y" value="26" />
+    <xacro:property name="solar_array_size_z" value="2.6" />
+
+    <option gravity="0 0 0" timestep="0.01" />
+
+    <visual>
+        <global offwidth="1920" offheight="1080" />
+        <rgba haze="0.1 0.1 0.2 1" />
+    </visual>
+
+    <worldbody>
+        <camera name="overview" pos="80 0 0" xyaxes="0 1 0 0 0 1" />
+        <light pos="0 0 100" dir="0 0 -1" diffuse="0.8 0.8 0.8" />
+        <light pos="100 100 100" dir="-1 -1 -1" diffuse="0.5 0.5 0.5" />
+
+        <body name="satellite" pos="0 80 0">
+            <freejoint />
+            <!-- Main satellite body -->
+            <geom type="box"
+                size="${satellite_size_x/2} ${satellite_size_y/2} ${satellite_size_z/2}"
+                rgba="0.7 0.7 0.7 1" mass="3529" />
+            <!-- Single large solar array paddle -->
+            <body name="solar_array" pos="2 ${(satellite_size_y + solar_array_size_y)/2} 0">
+                <geom type="box"
+                    size="${solar_array_size_x/2} ${solar_array_size_y/2} ${solar_array_size_z/2}"
+                    rgba="0.1 0.1 0.5 1" mass="171" />
+            </body>
+            <camera name="track" pos="40 10 0" xyaxes="0 1 0 0 0 1" mode="track" />
+        </body>
+    </worldbody>
+
+    <keyframe>
+        <key name="spinning" qpos="0 0 1 1 0 0 0" qvel="0 0 0 0.35 3 0" />
+    </keyframe>
+</mujoco>
