@@ -28,9 +28,11 @@
             <xacro:property name="adeos2_solar_size_z" value="2.6" />
             <freejoint />
             <!-- Main satellite body -->
-            <geom type="box"
-                size="${adeos2_base_size_x/2} ${adeos2_base_size_y/2} ${adeos2_base_size_z/2}"
-                rgba="0.7 0.7 0.7 1" mass="3529" />
+            <body name="base" pos="0 0 0">
+                <geom type="box"
+                    size="${adeos2_base_size_x/2} ${adeos2_base_size_y/2} ${adeos2_base_size_z/2}"
+                    rgba="0.7 0.7 0.7 1" mass="3529" />
+            </body>
             <!-- Single large solar array paddle -->
             <body name="solar_array" pos="2 ${(adeos2_base_size_y + adeos2_solar_size_y)/2} 0">
                 <!-- 適当な偏心 -->
@@ -42,6 +44,6 @@
     </worldbody>
 
     <keyframe>
-        <key name="spinning" qpos="0 0 1 1 0 0 0" qvel="0 0 0 0.35 3 0" />
+        <key name="stationary" qpos="0 0 0 1 0 0 0" qvel="0 0 0 0 0 0" />
     </keyframe>
 </mujoco>

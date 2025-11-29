@@ -7,7 +7,7 @@ model = mujoco.MjModel.from_xml_string(xacro.process_file("floating_manipulator.
 data = mujoco.MjData(model)
 
 # "spinning" キーフレームの状態でシミュレーションを開始
-mujoco.mj_resetDataKeyframe(model, data, model.keyframe('spinning').id)
+mujoco.mj_resetDataKeyframe(model, data, model.keyframe('stationary').id)
 
 n_frames = 300
 height = 720
