@@ -20,30 +20,26 @@
             -->
 
             <!-- properties -->
-            <xacro:property name="adeos2_base_size_x" value="6" />
-            <xacro:property name="adeos2_base_size_y" value="4" />
-            <xacro:property name="adeos2_base_size_z" value="4" />
-            <xacro:property name="adeos2_solar_size_x" value="0.20" />
-            <xacro:property name="adeos2_solar_size_y" value="26" />
-            <xacro:property name="adeos2_solar_size_z" value="2.6" />
+            <xacro:property name="adeos2_base_size" value="${[6, 4, 4]}" />
+            <xacro:property name="adeos2_solar_size" value="${[0.20, 26, 2.6]}" />
             <freejoint />
             <!-- Main satellite body -->
             <body name="base" pos="0 0 0">
                 <geom type="box"
-                    size="${adeos2_base_size_x/2} ${adeos2_base_size_y/2} ${adeos2_base_size_z/2}"
+                    size="${adeos2_base_size[0]/2} ${adeos2_base_size[1]/2} ${adeos2_base_size[2]/2}"
                     rgba="0.7 0.7 0.7 1" mass="3529" />
             </body>
             <!-- Single large solar array paddle -->
-            <body name="solar_array" pos="2 ${(adeos2_base_size_y + adeos2_solar_size_y)/2} 0">
+            <body name="solar_array" pos="2 ${(adeos2_base_size[1] + adeos2_solar_size[1])/2} 0">
                 <!-- 適当な偏心 -->
                 <geom type="box"
-                    size="${adeos2_solar_size_x/2} ${adeos2_solar_size_y/2} ${adeos2_solar_size_z/2}"
+                    size="${adeos2_solar_size[0]/2} ${adeos2_solar_size[1]/2} ${adeos2_solar_size[2]/2}"
                     rgba="0.1 0.1 0.5 1" mass="171" />
             </body>
         </body>
     </worldbody>
 
     <keyframe>
-        <key name="stationary" qpos="0 0 0 1 0 0 0" qvel="0 0 0 0 0 0" />
+        <key name="stationary" qpos="0 0 0 1 0 0 0" qvel="0 0 0 0 3 0" />
     </keyframe>
 </mujoco>
