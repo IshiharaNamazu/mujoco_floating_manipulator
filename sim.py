@@ -3,7 +3,7 @@ import mujoco.viewer
 import mediapy as media
 import xacro
 
-model = mujoco.MjModel.from_xml_string(xacro.process_file("floating_manipulator.xacro").toxml())
+model = mujoco.MjModel.from_xml_string(xacro.process_file("test_sat.xacro").toxml())
 data = mujoco.MjData(model)
 
 # "spinning" キーフレームの状態でシミュレーションを開始
