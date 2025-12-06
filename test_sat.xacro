@@ -1,9 +1,5 @@
 <?xml version="1.0"?>
 <mujoco model="ets7" xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <!-- 
-  This model was converted from the MATLAB SpaceDyn parameters provided in 
-  ets7_linkparam.m and ets7_fig3d.m.
-  -->
 
     <compiler angle="radian" eulerseq="XYZ" />
 
@@ -20,17 +16,27 @@
 
         <light diffuse=".5 .5 .5" pos="0 0 3" dir="0 0 -1" />
 
+        <!-- variables for ChaserSatellite base. -->
+        <!-- Source:ADRAS-J https://www.mext.go.jp/content/20241122-mxt_uchukai01-000038822_2.pdf -->
+        <xacro:property name="cs_base_size" value="${[0.83, 1.2, 0.81]}" />
+        <xacro:property name="cs_base_mass" value="${150}" />
+        <!-- variables for ChaserSatellite links -->
+        <!-- Source:ETS7 https://doi.org/10.1177/0278364903022005003-->
+        <xacro:property name="cs_link_len" value="${[0.350, 0.870, 0.630, 0.275, 0.277, 0.532]}" />
+        <xacro:property name="cs_link_mass" value="${[35.0, 22.5, 21.9, 16.5, 26.0, 18.5]}" />
+        <xacro:property name="cs_link_dir"
+            value="${['0 0 1', '0 0 1', '0 0 1', '0 0 1', '0 0 1', '0 0 1']}" />
+
         <!-- ChaserSatellite -->
         <body name="cs_base" pos="0 0 0">
             <freejoint name="root" />
-            <xacro:property name="cs_base_size" value="${[0.83, 1.2, 0.81]}" />
             <geom name="base_geom" type="box"
                 size="${cs_base_size[0]/2} ${cs_base_size[1]/2} ${cs_base_size[2]/2}"
-                rgba="0.6 0.8 1.0 1" mass="150" />
+                rgba="0.6 0.8 1.0 1" mass="${cs_base_mass}" />
 
             <!-- Link 1 -->
             <body name="link1" pos="0.6 0 0" euler="0 0 0">
-                <joint name="joint1" type="hinge" axis="0 0 1" pos="0 0 0" />
+                <joint name="joint1" type="hinge" axis="${cs_link_dir[0]}" pos="0 0 0" />
                 <geom name="link1_geom" type="box" size="0.05 0.05 0.175" pos="0 0 -0.175"
                     rgba="0.6 0.8 1.0 1" mass="35.0" />
 
