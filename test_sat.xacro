@@ -30,7 +30,7 @@
         <xacro:property name="cs_link_len" value="${[0.350, 0.870, 0.630, 0.275, 0.277, 0.532]}" />
         <xacro:property name="cs_link_mass" value="${[35.0, 22.5, 21.9, 16.5, 26.0, 18.5]}" />
         <xacro:property name="cs_link_axis"
-            value="${['0 0 1', '0 1 0', '0 1 0', '0 1 0', '0 0 1', '0 1 0']}" />
+            value="${['0 0 1', '1 0 0', '-1 0 0', '0 -1 0', '-1 0 0', '0 0 1']}" />
         <xacro:property name="cs_link_offset" value="${[0.28, 0, 0, 0, 0, 0]}" />
 
         <!-- ChaserSatellite -->
